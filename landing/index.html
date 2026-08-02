@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#18181b" />
+    <title>Home</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fafafa;
+        --fg: #18181b;
+        --muted: #71717a;
+        --card: #ffffff;
+        --border: #e4e4e7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #09090b;
+          --fg: #fafafa;
+          --muted: #a1a1aa;
+          --card: #18181b;
+          --border: #27272a;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 2rem 1.25rem;
+        background: var(--bg);
+        color: var(--fg);
+        font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main {
+        width: 100%;
+        max-width: 26rem;
+      }
+      h1 {
+        margin: 0 0 0.25rem;
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
+      }
+      p.sub {
+        margin: 0 0 1.75rem;
+        color: var(--muted);
+        font-size: 0.9375rem;
+      }
+      a.app {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        padding: 1rem 1.125rem;
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        background: var(--card);
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 0.15s, transform 0.15s;
+      }
+      a.app:hover {
+        border-color: var(--muted);
+        transform: translateY(-1px);
+      }
+      .emoji {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+      .name {
+        font-weight: 600;
+      }
+      .desc {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Home</h1>
+      <p class="sub">Two apps live here.</p>
+      <a class="app" href="/todolist">
+        <span class="emoji" aria-hidden="true">✅</span>
+        <span>
+          <span class="name">Todos</span><br />
+          <span class="desc">Shared lists, reminders, and history</span>
+        </span>
+      </a>
+      <a class="app" href="/worldcup">
+        <span class="emoji" aria-hidden="true">⚽</span>
+        <span>
+          <span class="name">World Cup Pool</span><br />
+          <span class="desc">2026 predictions, standings, and brackets</span>
+        </span>
+      </a>
+    </main>
+  </body>
+</html>

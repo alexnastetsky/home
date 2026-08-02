@@ -1,0 +1,15 @@
+bundle:
+  name: home-keepalive
+
+include:
+  - resources/*.yml
+
+targets:
+  default:
+    default: true
+    # production mode keeps schedules UNPAUSED and does not mangle resource
+    # names (development mode would pause the hourly trigger).
+    mode: production
+    workspace:
+      host: https://dbc-6354d47e-a4bc.cloud.databricks.com
+      root_path: /Workspace/Users/seashelf@gmail.com/.bundle/${bundle.name}/${bundle.target}

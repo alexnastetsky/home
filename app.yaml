@@ -1,0 +1,16 @@
+command: ['npm', 'run', 'start']
+env:
+  - name: LAKEBASE_ENDPOINT
+    valueFrom: postgres
+  - name: ADMIN_EMAIL
+    value: seashelf@gmail.com
+  # Todolist email notifications (see apps/todolist/server/email.ts).
+  - name: RESEND_API_KEY
+    valueFrom: resend-api-key
+  - name: TODOLIST_EMAIL_FROM
+    value: Todos <todos@alexalot.com>
+  - name: APP_BASE_URL
+    value: https://home-2371699704326236.aws.databricksapps.com
+  # Model Serving endpoint for todolist AI capture (see apps/todolist/server/ai.ts).
+  - name: TODOLIST_AI_ENDPOINT
+    valueFrom: ai-endpoint

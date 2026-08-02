@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.worldcup.json" },
+    { "path": "./tsconfig.server.json" },
+    { "path": "./tsconfig.todolist.json" }
+  ]
+}

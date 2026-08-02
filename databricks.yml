@@ -1,0 +1,56 @@
+bundle:
+  name: home
+
+variables:
+  postgres_branch:
+    description: Full Lakebase Postgres branch resource name. Obtain by running `databricks postgres list-branches {project-name}`, select the desired item from the output array and use its .name value. Requires the project resource name.
+  postgres_database:
+    description: Full Lakebase Postgres database resource name. Obtain by running `databricks postgres list-databases {branch-name}`, select the desired item from the output array and use its .name value. Requires the branch resource name.
+  postgres_project:
+    description: Full Lakebase Postgres project resource name. Obtain by running `databricks postgres list-projects`, select the desired item from the output array and use its .name value.
+
+resources:
+  apps:
+    app:
+      name: 'home'
+      description: 'World Cup pool (/worldcup) and todos (/todolist)'
+      source_code_path: ./
+      # Uncomment to enable on behalf of user API scopes. Available scopes: sql, dashboards.genie, files.files, serving.serving-endpoints
+      # user_api_scopes:
+      #   - sql
+
+      # The resources which this app has access to.
+      resources:
+        - name: postgres
+          postgres:
+            branch: ${var.postgres_branch}
+            database: ${var.postgres_database}
+            permission: CAN_CONNECT_AND_CREATE
+        # Resend API key for todolist email notifications/invites.
+        - name: resend-api-key
+          secret:
+            scope: todolist
+            key: resend-api-key
+            permission: READ
+        # Foundation-model endpoints for todolist AI capture (see
+        # apps/todolist/server/ai.ts). Two grants so TODOLIST_AI_ENDPOINT can
+        # switch between them without re-wiring.
+        - name: ai-endpoint
+          serving_endpoint:
+            name: databricks-llama-4-maverick
+            permission: CAN_QUERY
+        - name: ai-endpoint-claude
+          serving_endpoint:
+            name: databricks-claude-sonnet-5
+            permission: CAN_QUERY
+
+targets:
+  default:
+    default: true
+    workspace:
+      host: https://dbc-6354d47e-a4bc.cloud.databricks.com
+
+    variables:
+      postgres_branch: projects/worldcup-pool/branches/production
+      postgres_database: projects/worldcup-pool/branches/production/databases/databricks-postgres
+      postgres_project: projects/worldcup-pool

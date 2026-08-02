@@ -1,0 +1,23 @@
+resources:
+  jobs:
+    keepalive:
+      name: home-keepalive
+      description: Hourly check that starts the home app if its compute is stopped.
+
+      tasks:
+        - task_key: check_and_start
+          # No cluster config → serverless compute (required on Free Edition).
+          notebook_task:
+            notebook_path: ../src/check_and_start_app.py
+
+      schedule:
+        # Every hour, on the hour (Quartz: sec min hour dom month dow).
+        quartz_cron_expression: "0 0 * * * ?"
+        timezone_id: UTC
+        pause_status: UNPAUSED
+
+      max_concurrent_runs: 1
+
+      email_notifications:
+        on_failure:
+          - seashelf@gmail.com
