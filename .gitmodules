@@ -3,4 +3,4 @@
 	url = /Users/alex/claude/databricks
 [submodule "apps/todolist"]
 	path = apps/todolist
-	url = /private/tmp/claude-501/-Users-alex-claude-todolist/95b222ea-9281-40be-a4d7-892cc97c4bcd/scratchpad/todolist-repo
+	url = /Users/alex/claude/todolist
