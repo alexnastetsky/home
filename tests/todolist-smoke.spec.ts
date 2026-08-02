@@ -20,8 +20,10 @@ test('todolist smoke - deep route serves the todo SPA, not the world cup app', a
   await expect(page.getByRole('heading', { name: 'World Cup 2026 Pool' })).not.toBeVisible();
 });
 
-test('todolist smoke - world cup app still owns the root', async ({ page }) => {
+test('todolist smoke - the todo SPA stays inside /todolist', async ({ page }) => {
+  // The shell owns the root; neither app may leak past its own prefix.
   await page.goto('/');
 
-  await expect(page.getByRole('heading', { name: 'World Cup 2026 Pool' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Home' })).toBeVisible();
+  await expect(page.getByRole('link', { name: '✓ Todos' })).not.toBeVisible();
 });
