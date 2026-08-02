@@ -32,16 +32,14 @@ resources:
             scope: todolist
             key: resend-api-key
             permission: READ
-        # Foundation-model endpoints for todolist AI capture (see
-        # apps/todolist/server/ai.ts). Two grants so TODOLIST_AI_ENDPOINT can
-        # switch between them without re-wiring.
+        # Foundation-model endpoint for todolist AI capture (see
+        # apps/todolist/server/ai.ts). There used to be a second grant on
+        # databricks-claude-sonnet-5 so TODOLIST_AI_ENDPOINT could switch
+        # without re-wiring, but that endpoint no longer exists in the
+        # workspace. Add another block here to grant an alternate.
         - name: ai-endpoint
           serving_endpoint:
             name: databricks-llama-4-maverick
-            permission: CAN_QUERY
-        - name: ai-endpoint-claude
-          serving_endpoint:
-            name: databricks-claude-sonnet-5
             permission: CAN_QUERY
 
 targets:
