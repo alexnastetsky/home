@@ -1,6 +1,6 @@
 [submodule "apps/worldcup"]
 	path = apps/worldcup
-	url = /Users/alex/claude/databricks
+	url = git@github.com:alexnastetsky/worldcup-pool.git
 [submodule "apps/todolist"]
 	path = apps/todolist
-	url = /Users/alex/claude/todolist
+	url = git@github.com:alexnastetsky/todolist.git
