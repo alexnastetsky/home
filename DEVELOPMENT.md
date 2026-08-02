@@ -6,8 +6,16 @@
 | ------------ | --------------------------------------------------- | ------------------------------------- |
 | App          | Databricks App `home`                      | `npm run dev` on localhost:8000       |
 | Database     | Lakebase `production` branch, `databricks_postgres` | Lakebase `dev` branch, `worldcup_dev` |
-| Schema owner | App service principal                               | Your user (`seashelf@gmail.com`)      |
+| Schema owner | `app_owner` role — you and the app are both members | Your user (`seashelf@gmail.com`)      |
 | Connection   | Injected by the platform at deploy                  | `.env` (gitignored, never deployed)   |
+
+Postgres has no grantable ALTER, so the startup `ADD COLUMN IF NOT EXISTS`
+migrations only run if the app *owns* its tables. Production objects therefore
+belong to a shared `app_owner` role that both you and the app's service
+principal are members of. **Recreating the Databricks App mints a new service
+principal — re-run `node scripts/grant-app-role.mjs <new-sp-client-id>` after
+any such flip**, or schema setup fails silently and `npm run ship` stops at
+`verify:deploy`.
 
 The `dev` branch database is fully isolated: tests can save picks, lock, enter
 results, and reset without touching the real pool. Because your user owns the
