@@ -37,7 +37,11 @@ const { Client } = require('pg');
 const ENDPOINT = 'projects/worldcup-pool/branches/production/endpoints/primary';
 const DATABASE = 'databricks_postgres';
 const USER = 'seashelf@gmail.com';
-const SCHEMAS = ['pool', 'todolist'];
+// `appkit` is AppKit's own persistent-cache schema, not ours — but it has the
+// same problem, and its failure is just as quiet: without access the app logs
+// "permission denied for schema appkit" on every boot and silently runs with no
+// persistent cache.
+const SCHEMAS = ['pool', 'todolist', 'appkit'];
 const OWNER = 'app_owner';
 
 const role = process.argv[2];
